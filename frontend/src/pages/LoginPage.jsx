@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
+import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -12,13 +13,21 @@ const LoginPage = () => {
 
   const userLogin = async (ev)=>{
     ev.preventDefault();
+
     try {
-      const {data} = await axios.post('/login',{email,password})
-      setUser(data)
-      alert("Inicio de Sesion Correcta")
-      setRedirect(true)
+      const { data } = await axios.post('/login', { email, password });
+      setUser(data);
+      Swal.fire({
+        title: 'Inicio de Sesión Correcto',
+        icon: 'success',
+      }).then(() => {
+        setRedirect(true);
+      });
     } catch (error) {
-      alert("Inicio de Sesion fallido")
+      Swal.fire({
+        title: 'Inicio de Sesión Fallido',
+        icon: 'error',
+      });
     }
   }
 

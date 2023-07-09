@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -15,9 +16,9 @@ const RegisterPage = () => {
         email,
         password,
       });
-      alert('Registro exitoso')
+      Swal.fire('Registro exitoso', '', 'success');
     } catch (error) {
-      alert('Registro Fallido Correo ya existente')
+      Swal.fire('Registro fallido', 'Correo ya existente', 'error');
     }
     
   };

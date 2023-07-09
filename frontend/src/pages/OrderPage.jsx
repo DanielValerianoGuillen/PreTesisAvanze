@@ -35,7 +35,7 @@ const OrderPage = () => {
                 {order.product.name}</h2>
             <div className="bg-gray-200 p-6 my-6 rounded-2xl flex items-center justify-between">
                 <div>
-                <h2 className="text-2xl mb-4">Informacion de tu Reserva</h2>
+                <h2 className="text-2xl mb-4">Informacion de tu Orden</h2>
                 <OrderDates order={order} />
                 </div>
                 <div className="bg-primary p-6 text-white rounded-2xl">

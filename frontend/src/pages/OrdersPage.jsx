@@ -20,8 +20,8 @@ const OrdersPage = () => {
             <AccountNav />
             <div>
                 {orders?.length > 0 && orders.map(order => (
-                    <Link to={`/account/orders/${order._id}`} className="flex mb-2 gap-4 bg-gray-200 rounded-2xl overflow-hidden">
-                        <div className="w-80">
+                    <Link key={order._id} to={`/account/orders/${order._id}`} className="flex mb-2 gap-4 bg-gray-200 rounded-2xl overflow-hidden">
+                        <div className="w-32">
                             <ProductImg product={order.product} />
                         </div>
                         <div className="py-4 pr-3 grow">

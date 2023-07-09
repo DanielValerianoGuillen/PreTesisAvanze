@@ -4,6 +4,7 @@ import CategoryLabels from "../components/CategoryLabels";
 import PhotosUploader from "../components/PhotosUploader";
 import axios from "axios";
 import AccountNav from "../components/AccountNav";
+import Swal from 'sweetalert2';
 
 const ProductFormPage = () => {
 
@@ -55,14 +56,24 @@ const ProductFormPage = () => {
   const saveProduct = async (ev) => {
     ev.preventDefault();
     const productData = { title, name, photos, description, category, extraInfo, color, brand, size, price }
-
-    if (id) {
-      await axios.put('/products', { id, ...productData })
-      setRedirect(true)
-    } else {
-      await axios.post('/products', productData)
-      setRedirect(true)
-    }
+    Swal.fire({
+      title: '¿Guardar producto?',
+      text: '¿Estás seguro de que deseas guardar el producto?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      cancelButtonText: 'Cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (id) {
+          await axios.put('/products', { id, ...productData });
+        } else {
+          await axios.post('/products', productData);
+        }
+        setRedirect(true);
+        Swal.fire('Producto guardado', '', 'success');
+      }
+    });
   }
 
 
@@ -136,18 +147,13 @@ const ProductFormPage = () => {
               onChange={(e) => setSize(e.target.value)}
             />
           </div>
-
           <div>
             <h3 className="mt-2 -mb-1">Precio del Producto</h3>
             <input type="number" value={price}
               onChange={ev => setPrice(ev.target.value)} />
           </div>
-
         </div>
-        
         <button className="primary my-4">Guardar</button>
-
-     
       </form>
     </div>
   );
